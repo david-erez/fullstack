@@ -1,0 +1,114 @@
+@startuml Flicacha_MER
+
+
+
+' ── Core entities ─────────────────────────────
+entity users {
+  PK user_id        : BIGINT
+  --
+  username          : NVARCHAR(50)  <<UNIQUE>>
+  email             : NVARCHAR(150) <<UNIQUE>>
+  password_hash     : NVARCHAR(255)
+  display_name      : NVARCHAR(100)
+  bio               : NVARCHAR(300)
+  avatar_url        : NVARCHAR(500)
+  is_active         : BIT
+  created_at        : DATETIME2
+  updated_at        : DATETIME2
+}
+
+entity posts {
+  PK post_id        : BIGINT
+  --
+  FK user_id        : BIGINT
+  content           : NVARCHAR(280)
+  is_visible        : BIT
+  created_at        : DATETIME2
+  updated_at        : DATETIME2
+}
+
+entity comments {
+  PK comment_id     : BIGINT
+  --
+  FK post_id        : BIGINT
+  FK user_id        : BIGINT
+  content           : NVARCHAR(500)
+  created_at        : DATETIME2
+}
+
+entity hashtags {
+  PK hashtag_id     : BIGINT
+  --
+  tag               : NVARCHAR(100) <<UNIQUE>>
+  created_at        : DATETIME2
+}
+
+entity notifications {
+  PK notification_id : BIGINT
+  --
+  FK user_id         : BIGINT
+  FK actor_id        : BIGINT
+  type               : NVARCHAR(30)
+  reference_id       : BIGINT
+  is_read            : BIT
+  created_at         : DATETIME2
+}
+
+entity media_files {
+  PK media_id       : BIGINT
+  --
+  FK post_id        : BIGINT
+  url               : NVARCHAR(500)
+  media_type        : NVARCHAR(20)
+  created_at        : DATETIME2
+}
+
+' ── Pivot / Junction tables ───────────────────
+entity post_likes {
+  PK FK user_id     : BIGINT
+  PK FK post_id     : BIGINT
+  --
+  created_at        : DATETIME2
+}
+
+entity user_follows {
+  PK FK follower_id  : BIGINT
+  PK FK following_id : BIGINT
+  --
+  created_at         : DATETIME2
+}
+
+entity post_hashtags {
+  PK FK post_id     : BIGINT
+  PK FK hashtag_id  : BIGINT
+}
+
+entity comment_likes {
+  PK FK user_id     : BIGINT
+  PK FK comment_id  : BIGINT
+  --
+  created_at        : DATETIME2
+}
+
+' ── Relationships ─────────────────────────────
+users        ||--o{ posts          : "writes"
+users        ||--o{ comments       : "writes"
+users        ||--o{ notifications  : "receives"
+users        ||--o{ notifications  : "triggers (actor)"
+posts        ||--o{ comments       : "has"
+posts        ||--o{ media_files    : "contains"
+
+' Pivot relations
+users        ||--o{ post_likes     : ""
+posts        ||--o{ post_likes     : ""
+
+users        ||--o{ user_follows   : "follower"
+users        ||--o{ user_follows   : "following"
+
+posts        ||--o{ post_hashtags  : ""
+hashtags     ||--o{ post_hashtags  : ""
+
+users        ||--o{ comment_likes  : ""
+comments     ||--o{ comment_likes  : ""
+
+@enduml
