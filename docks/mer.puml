@@ -21,6 +21,16 @@ entity posts {
   created_at        : TIMESTAMPTZ
   updated_at        : TIMESTAMPTZ
 }
+entity hashtags {
+  PK hashtag_id     : BIGINT
+  --
+  tag               : NVARCHAR(100) <<UNIQUE>>
+  created_at        : DATETIME2
+}
+entity post_hashtags {
+  PK FK post_id     : BIGINT
+  PK FK hashtag_id  : BIGINT
+}
 
 entity comments {
   PK comment_id     : BIGINT
@@ -51,7 +61,6 @@ entity media_files {
   created_at        : TIMESTAMPTZ
 }
 
-' ── Pivot / Junction tables ───────────────────
 entity post_likes {
   PK FK user_id     : BIGINT
   PK FK post_id     : BIGINT
@@ -73,22 +82,21 @@ entity comment_likes {
   created_at        : TIMESTAMPTZ
 }
 
-' ── Relationships ─────────────────────────────
-users        ||--o{ posts          : "writes"
-users        ||--o{ comments       : "writes"
-users        ||--o{ notifications  : "receives"
-users        ||--o{ notifications  : "triggers (actor)"
-posts        ||--o{ comments       : "has"
-posts        ||--o{ media_files    : "contains"
+users        ||--o{ posts          : ""
+users        ||--o{ comments       : ""
+users        ||--o{ notifications  : ""
+posts        ||--o{ comments       : ""
+posts        ||--o{ media_files    : ""
 
-' Pivot relations
 users        ||--o{ post_likes     : ""
 posts        ||--o{ post_likes     : ""
 
-users        ||--o{ user_follows   : "follower"
-users        ||--o{ user_follows   : "following"
+users        ||--o{ user_follows   : ""
 
 users        ||--o{ comment_likes  : ""
 comments     ||--o{ comment_likes  : ""
+
+posts        ||--o{ post_hashtags  : ""
+hashtags     ||--o{ post_hashtags  : ""
 
 @enduml 
