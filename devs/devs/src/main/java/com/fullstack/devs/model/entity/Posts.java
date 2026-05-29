@@ -1,11 +1,11 @@
 package com.fullstack.devs.model.entity;
 
+import com.fullstack.devs.modules.user.model.entity.Users;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.AnyDiscriminatorImplicitValues;
 
 import java.time.LocalDateTime;
 
