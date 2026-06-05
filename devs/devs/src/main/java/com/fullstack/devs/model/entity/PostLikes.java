@@ -16,10 +16,15 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostLikes {
+    @EmbeddedId
+    private PostLikesId id;
+
     @ManyToOne
+    @MapsId("userId")
     @JoinColumn ( name = "user_id",nullable = false)
     private Users users;
     @ManyToOne
+    @MapsId("postId")
     @JoinColumn (name = "post_id",nullable = false)
     private Posts posts;
     @Column (name = "created_at")

@@ -16,10 +16,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserFollows {
+    @EmbeddedId
+    private UserFollowsId id;
+
     @ManyToOne
+    @MapsId("followerId")
     @JoinColumn(name = "follower_id",nullable = false)
     private Users followerId;
     @ManyToOne
+    @MapsId("followingId")
     @JoinColumn (name = "following_id",nullable = false)
     private Users following_id;
     @Column(name = "created_at")
