@@ -17,7 +17,7 @@ public interface UserFollowsRepository extends JpaRepository<UserFollows, UserFo
     boolean existsByFollowing_UserId(Long followingId);
 
     /* Verificar si follower ya sigue a following. */
-    boolean existsByFollower_UserIdAndFollowing_UserId(Long followerId, Long followingId);
+    boolean existsByFollower_UserIdAndFollowing_UserId(    Long followerId, Long followingId);
 
     /* Contar seguidores de un usuario. */
     long countByFollowing_UserId(Long followingId);

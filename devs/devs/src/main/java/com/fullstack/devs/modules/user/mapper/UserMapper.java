@@ -4,10 +4,14 @@ import com.fullstack.devs.modules.user.model.dto.UserRequest;
 import com.fullstack.devs.modules.user.model.dto.UserResponse;
 import com.fullstack.devs.modules.user.model.entity.Users;
 import org.mapstruct.Mapper;
-import org.springframework.security.core.userdetails.User;
+import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserMapper {
+    
+    @Mapping(source = "username", target = "name")
+    @Mapping(source = "avatarUrl", target = "imagePath")
+    @Mapping(target = "passwordHash", ignore = true)
     public Users toEntity (UserRequest dto);
-    public UserResponse toResponse (User user);
+    public UserResponse toResponse (Users user);
 }

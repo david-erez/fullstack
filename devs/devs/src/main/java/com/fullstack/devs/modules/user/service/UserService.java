@@ -38,16 +38,16 @@ public class UserService {
     public Users getUserById(Long id){
         return userRepository.findById(id).orElseThrow(()-> new RuntimeException("User not found"));
     }
-    public Users getUserEmail(String username){
-        return  userRepository.findByUsername(username).orElseThrow(()-> new RuntimeException("User no found"+ username));
+    public Users getName(String name){
+        return  userRepository.findByName(name).orElseThrow(()-> new RuntimeException("User no found"+ name));
     }
     /*-----actualizar mis datos------*/
     public Users updateMyPrefile(String newName, String newImage){
         Users users =  getAuthenticatedUser();
         if (newName != null && !newName.isBlank()){
-            users   .setName(newName);
+            users.setName(newName);
         }
-        if (newImage != null && !newName.isBlank()){
+        if (newImage != null && !newImage.isBlank()){
             users.setImagePath(newImage);
         }
         return userRepository.save(users);
@@ -71,26 +71,28 @@ public class UserService {
 
     /*wedewfqqqrrrrrrrrrrrrrrrrrrrrrrr*/
     /*seguir usuario*/
-    public void follow(Long followerId, Long followingId){
-        if (followerId.equals(followingId)){
+    public void follow( Long followingId){
+        Users follower = getAuthenticatedUser();
+
+        if (follower.getUserId().equals(followingId)){
             throw new RuntimeException("not follow you my men xd");
         }
-        if (userFollowsRepository.existsByFollower_UserIdAndFollowing_UserId(followerId, followingId)){
-            throw  new RuntimeException("not folloig to un user a folowign no se puede seguir a quien ya se sigue");
+        if (userFollowsRepository.existsByFollower_UserIdAndFollowing_UserId(follower.getUserId(),followingId)){
+            throw  new RuntimeException("Already following");
         }
-        Users follower = getUserById(followerId);
         Users following = getUserById(followingId);
-
-        UserFollows userFollows =new UserFollows();
-        userFollows.setId(new UserFollowsId(followerId, followingId));
-        userFollows.setFollower(follower);
-        userFollows.setFollowing(following);
-        userFollowsRepository.save(userFollows);
+        UserFollows relation = new UserFollows();
+        relation.setId(new UserFollowsId(follower.getUserId(),followingId));
+        relation.setFollower(follower);
+        relation.setFollowing(following);
+        userFollowsRepository.save(relation);
     }
 
     /*ya no seguir usuario*/
-    public void unFollow (Long followerId, Long followingId){
-        UserFollowsId userFollowsId = new UserFollowsId(followerId,followingId);
+    public void unFollow (Long followingId){
+        Users follower = getAuthenticatedUser();
+
+        UserFollowsId userFollowsId = new UserFollowsId(follower.getUserId(),followingId);
         if (!userFollowsRepository.existsById(userFollowsId)){
             throw  new RuntimeException("not following user");
         }
