@@ -1,4 +1,4 @@
-package com.fullstack.devs.model.entity;
+package com.fullstack.devs.modules.post.model.entity;
 
 
 import jakarta.persistence.*;
@@ -28,7 +28,7 @@ public class MediaFiles {
     private LocalDateTime createdAt;
     @ManyToOne
     @JoinColumn (name = "posts_id")
-    private  Posts posts;
+    private Posts posts;
     @PrePersist
     protected void onCrate(){
         createdAt = LocalDateTime.now();

@@ -1,5 +1,6 @@
 package com.fullstack.devs.model.entity;
 
+import com.fullstack.devs.modules.post.model.entity.Posts;
 import com.fullstack.devs.modules.user.model.entity.Users;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,7 @@ public class Comments {
     private LocalDateTime created_at;
     @ManyToOne
     @JoinColumn (name = "posts_id",nullable = false)
-    private  Posts posts;
+    private Posts posts;
     @ManyToOne
     @JoinColumn (name = "user_id",nullable = false)
     private Users users;

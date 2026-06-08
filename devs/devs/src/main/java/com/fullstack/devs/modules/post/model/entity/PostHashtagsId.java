@@ -1,4 +1,4 @@
-package com.fullstack.devs.model.entity;
+package com.fullstack.devs.modules.post.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
