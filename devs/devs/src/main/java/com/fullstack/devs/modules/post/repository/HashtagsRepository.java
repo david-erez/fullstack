@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface HashtagsFiles extends JpaRepository<Hashtags, PostHashtagsId> {
+public interface HashtagsRepository extends JpaRepository<Hashtags, PostHashtagsId> {
     /*todos los hashtags de un post*/
     List<Hashtags> findByContents_ContentId(Long PostHashtagsId);
     /*buscar por nombre*/
