@@ -14,13 +14,11 @@ import com.fullstack.devs.modules.user.model.entity.Users;
 import com.fullstack.devs.modules.user.repository.UserRepository;
 import com.fullstack.devs.shared.serviec.BaseService;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.text.TextRandomProvider;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -79,7 +77,7 @@ public class PostService extends BaseService<Posts, Long> {
         if (!posts.getUsers().getUserId().equals(userId)){
             throw new RuntimeException("not have permissions for edit this file");
         }
-        posts.setContent(request.getContent());
+        /*posts.setContent(request.getContent());*/
         Posts updated = update(posts);
         extractAndLinkHashtags(posts);
         return  postMapper.toResponse(updated);
@@ -94,7 +92,6 @@ public class PostService extends BaseService<Posts, Long> {
         posts.setVisible(false);
         postsRepository.save(posts);
     }
-    /*post por hashtag*/
         public List<PostResponse> getPostByHashtag(String tag){
         Hashtags hashtags = hashtagsRepository
             .findByTag(tag.toLowerCase())
