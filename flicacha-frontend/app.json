@@ -1,0 +1,50 @@
+{
+  "expo": {
+    "name": "Flicacha",
+    "slug": "flicacha",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "flicacha",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#0D0D0D",
+      "resizeMode": "contain"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.flicacha.app",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Flicacha necesita acceso a tu galería para que puedas compartir fotos y videos en tus publicaciones.",
+        "NSCameraUsageDescription": "Flicacha necesita acceso a tu cámara para que puedas tomar fotos y videos para tus publicaciones."
+      }
+    },
+    "android": {
+      "package": "com.flicacha.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#0D0D0D"
+      },
+      "permissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "CAMERA"
+      ]
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Flicacha necesita acceso a tu galería para compartir fotos y videos.",
+          "cameraPermission": "Flicacha necesita acceso a tu cámara para tomar fotos y videos."
+        }
+      ]
+    ],
+    "extra": {
+      "apiUrl": "http://localhost:3000/api/v1"
+    }
+  }
+}
