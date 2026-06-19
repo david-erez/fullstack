@@ -1,6 +1,5 @@
 package com.fullstack.devs.modules.social.model.dto;
 
-import liquibase.command.core.init.StringGetter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public interface CommentsRepository extends JpaRepository<Comments,Long> {
     List<Comments> findByPosts_PostsId(Long postId);
-    List<Comments> findByUsers_UsersId(Long userId);
+    List<Comments> findByUsers_UserId(Long userId);
     long countByPosts_PostsId(Long postId);
     boolean existsByCommentsIdAndUsers_UserId(Long commentId, Long userId);
-    Optional<Comments> findByCommentsIdAndUsers_UserId(Long commentId);
+    Optional<Comments> findByCommentsIdAndUsers_UserId(Long commentId, Long userId);
 }

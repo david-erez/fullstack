@@ -10,7 +10,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table (name = "user_id")
+@Table (name = "comments_likes")
 @Getter
 @Setter
 @AllArgsConstructor
