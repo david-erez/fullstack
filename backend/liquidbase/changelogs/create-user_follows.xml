@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="11" author="fullstack.dev">
+        <createTable tableName="user_follows">
+            <column name="follower_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_follows_follower" references="users(user_id)"/>
+            </column>
+            <column name="following_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_follows_following" references="users(user_id)"/>
+            </column>
+            <column name="created_at" type="DATETIME"/>
+        </createTable>
+        <addPrimaryKey tableName="user_follows" columnNames="follower_id, following_id" constraintName="pk_user_follows"/>
+    </changeSet>
+
+</databaseChangeLog>

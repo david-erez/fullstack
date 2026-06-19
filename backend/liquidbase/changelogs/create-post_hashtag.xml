@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="10" author="fullstack.dev">
+        <createTable tableName="post_hashtags">
+            <column name="posts_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_posthashtags_post" references="posts(posts_id)"/>
+            </column>
+            <column name="hashtags_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_posthashtags_hashtag" references="hashtags(hashtags_id)"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="post_hashtags" columnNames="posts_id, hashtags_id" constraintName="pk_post_hashtags"/>
+    </changeSet>
+
+</databaseChangeLog>

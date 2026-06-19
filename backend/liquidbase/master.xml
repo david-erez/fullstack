@@ -1,0 +1,19 @@
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <include file="changelogs/create-user.xml"/>
+    <include file="changelogs/create-token.xml"/>
+    <include file="changelogs/create-post.xml"/>
+    <include file="changelogs/create-hashtags.xml"/>
+    <include file="changelogs/create-comment.xml"/>
+    <include file="changelogs/create-media_files.xml"/>
+    <include file="changelogs/create-notification.xml"/>
+    <include file="changelogs/create-post_likes.xml"/>
+    <include file="changelogs/create-comment_likes.xml"/>
+    <include file="changelogs/create-post_hashtag.xml"/>
+    <include file="changelogs/create-user_follows.xml"/>
+
+</databaseChangeLog>

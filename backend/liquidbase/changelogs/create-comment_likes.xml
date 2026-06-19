@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="9" author="fullstack.dev">
+        <createTable tableName="comment_likes">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_commentlikes_user" references="users(user_id)"/>
+            </column>
+            <column name="comment_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_commentlikes_comment" references="comments(comments_id)"/>
+            </column>
+            <column name="created_at" type="DATETIME"/>
+        </createTable>
+        <addPrimaryKey tableName="comment_likes" columnNames="user_id, comment_id" constraintName="pk_comment_likes"/>
+    </changeSet>
+
+</databaseChangeLog>
