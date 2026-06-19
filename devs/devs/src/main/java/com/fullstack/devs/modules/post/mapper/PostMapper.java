@@ -3,7 +3,6 @@ package com.fullstack.devs.modules.post.mapper;
 import com.fullstack.devs.modules.post.model.dto.PostRequest;
 import com.fullstack.devs.modules.post.model.dto.PostResponse;
 import com.fullstack.devs.modules.post.model.entity.Posts;
-import com.fullstack.devs.modules.user.model.dto.UserRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -11,12 +10,15 @@ import org.mapstruct.Mapping;
 public interface PostMapper {
 
 
-    @Mapping( target = "user" , ignore = true)
-    @Mapping( target = "postHashtags" , ignore = true)
-    @Mapping( target = "mediaFiles" , ignore = true)
+    @Mapping(target = "users", ignore = true)
     public Posts toEntity(PostRequest dto);
-    @Mapping(source = "user.userId",   target = "userId")
-    @Mapping(source = "user.username", target = "username")
-    @Mapping(source = "postId",        target = "postId")
+
+    @Mapping(source = "users.userId", target = "userId")
+    @Mapping(source = "users.name", target = "name")
+    @Mapping(source = "postsId", target = "postId")
+    @Mapping(source = "updateAt", target = "updatedAt")
+    @Mapping(target = "likes", ignore = true)
+    @Mapping(target = "comments", ignore = true)
+    @Mapping(target = "hashtags", ignore = true)
     public PostResponse toResponse(Posts posts);
 }

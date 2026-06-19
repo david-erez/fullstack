@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PostsRepository extends JpaRepository<Posts,Long> {
-    List<Posts> findByUser_UserId(Long userId);
-    /*post ordenados por fecha*/
+    List<Posts> findByUsers_UserId(Long userId);
+
     List<Posts> findByIsVisibleTrueOrderByCreatedAtDesc();
-    /*buscar por usuario especifico*/
-    List<Posts> findByUserIdAndIsVisibleTrueOrderByCreatedAtDesc(Long userId);
+
+    List<Posts> findByUsers_UserIdAndIsVisibleTrueOrderByCreatedAtDesc(Long userId);
 }

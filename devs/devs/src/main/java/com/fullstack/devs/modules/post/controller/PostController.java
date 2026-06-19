@@ -52,5 +52,10 @@ public class PostController {
         postService.deletePost(id, user.getUserId());
         return ResponseEntity.ok("Post deleted successfully");
     }
+
+    @GetMapping("/hashtags/{tag}")
+    public ResponseEntity<List<PostResponse>>getByHashtag(@PathVariable String tag){
+        return ResponseEntity.ok(postService.getPostByHashtag(tag));
+    }
 }
 

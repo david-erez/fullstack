@@ -65,7 +65,7 @@ public class PostService extends BaseService<Posts, Long> {
     }
     /*obtener todos los post de un usuario*/
     public List<PostResponse> getPost(Long idUser){
-        return postsRepository.findByUserIdAndIsVisibleTrueOrderByCreatedAtDesc(idUser)
+        return postsRepository.findByUsers_UserIdAndIsVisibleTrueOrderByCreatedAtDesc(idUser)
                 .stream()
                 .map(postMapper ::toResponse)
                 .toList();

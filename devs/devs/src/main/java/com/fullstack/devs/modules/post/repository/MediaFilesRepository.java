@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface MediaFilesRepository extends JpaRepository<MediaFiles,Long> {
     /*todos los archivos de un post*/
-    List<MediaFiles> findByPostId(Long postId)  ;
+    List<MediaFiles> findByPosts_PostsId(Long postId);
 }
