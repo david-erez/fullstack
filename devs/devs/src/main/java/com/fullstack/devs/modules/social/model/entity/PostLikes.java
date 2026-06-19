@@ -1,5 +1,6 @@
-package com.fullstack.devs.model.entity;
+package com.fullstack.devs.modules.social.model.entity;
 
+import com.fullstack.devs.modules.post.model.entity.Posts;
 import com.fullstack.devs.modules.user.model.entity.Users;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,30 +11,28 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table (name = "user_id")
+@Table(name = "post_likes")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentsLikes {
+public class PostLikes {
     @EmbeddedId
-    private CommentsLikesId id;
+    private PostLikesId id;
 
     @ManyToOne
     @MapsId("userId")
-    @JoinColumn (name = "user_id",nullable = false)
-    private Users userId;
-
+    @JoinColumn ( name = "user_id",nullable = false)
+    private Users users;
     @ManyToOne
-    @MapsId("commentId")
-    @JoinColumn (name = "comment_id",nullable = false)
-    private Comments commentId;
+    @MapsId("postId")
+    @JoinColumn (name = "post_id",nullable = false)
+    private Posts posts;
     @Column (name = "created_at")
-    private LocalDateTime createdAt;
-
+    private LocalDateTime created_At;
     @PrePersist
     protected void onCreated(){
-        createdAt = LocalDateTime.now();
+        created_At = LocalDateTime.now();
     }
 
 }
