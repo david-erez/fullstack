@@ -20,8 +20,10 @@ public class Notifications {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (name = "notification_id")
     private Long notificationId;
-    @Column (nullable = false,length = 30)
-    private String type;
+    @Column (nullable = false, length = 30)
+    private String title;
+    @Column (nullable = false,length = 150)
+    private String message;
     @Column (name = "is_read")
     private boolean isRead;
     @Column (name = "created_at")
