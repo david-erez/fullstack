@@ -27,7 +27,6 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-
 public class JwtFiltrer extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
     private  final UserDetailsService userDetailsService;

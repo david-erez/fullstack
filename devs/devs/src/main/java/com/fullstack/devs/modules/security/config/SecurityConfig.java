@@ -3,6 +3,7 @@ package com.fullstack.devs.modules.security.config;
 import com.fullstack.devs.modules.user.model.entity.Users;
 import com.fullstack.devs.modules.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
