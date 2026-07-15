@@ -5,6 +5,7 @@ import com.fullstack.devs.modules.user.model.entity.UserFollowsId;
 import com.fullstack.devs.modules.user.model.entity.Users;
 import com.fullstack.devs.modules.user.repository.UserFollowsRepository;
 import com.fullstack.devs.modules.user.repository.UserRepository;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;

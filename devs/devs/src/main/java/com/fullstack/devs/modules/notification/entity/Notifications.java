@@ -21,9 +21,7 @@ public class Notifications {
     @Column (name = "notification_id")
     private Long notificationId;
     @Column (nullable = false, length = 30)
-    private String title;
-    @Column (nullable = false,length = 150)
-    private String message;
+    private String type;
     @Column (name = "is_read")
     private boolean isRead;
     @Column (name = "created_at")

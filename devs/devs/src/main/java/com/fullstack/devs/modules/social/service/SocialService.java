@@ -7,15 +7,20 @@ import com.fullstack.devs.modules.social.model.dto.CommentRequest;
 import com.fullstack.devs.modules.social.model.dto.CommentResponse;
 import com.fullstack.devs.modules.social.model.dto.LikeResponse;
 import com.fullstack.devs.modules.social.model.entity.Comments;
+import com.fullstack.devs.modules.social.model.entity.PostLikes;
+import com.fullstack.devs.modules.social.model.entity.PostLikesId;
 import com.fullstack.devs.modules.social.repository.CommentsLikesRepository;
 import com.fullstack.devs.modules.social.repository.CommentsRepository;
 import com.fullstack.devs.modules.social.repository.PostLikesRepository;
 import com.fullstack.devs.modules.user.model.entity.Users;
 import com.fullstack.devs.modules.user.repository.UserRepository;
+import com.fullstack.devs.shared.events.concrectEvents.PostLikeEvent;
 import com.fullstack.devs.shared.serviec.BaseService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +35,7 @@ public class SocialService extends BaseService<Comments,Long> {
     private final CommentsLikesRepository commentsLikesRepository;
     private final CommentsRepository commentsRepository;
     private final SocialMapper socialMapper;
+    private  final ApplicationEventPublisher eventPublisher;
 
     @Override
     protected JpaRepository<Comments, Long> getRepository() {
@@ -113,6 +119,31 @@ public class SocialService extends BaseService<Comments,Long> {
                 .map(socialMapper::postLikeToResponse)
                 .toList();
     }
+
+    /*likes de post */
+    public LikeResponse likePost(Long postId){
+        Users actor = getAuthenticate();
+        Posts posts = postsRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
+
+        PostLikesId id = new PostLikesId(actor.getUserId(), postId);
+        if (postLikesRepository.existsById(id)){
+            throw new RuntimeException("Already liked this post");
+        }
+
+        //save the like
+        PostLikes likes  =  new PostLikes();
+        likes.setId(id);
+        likes.setUsers(actor);
+        likes.setPosts(posts);
+        postLikesRepository.save(likes);
+        // publica el  evento , notificando si el actor no es el dueno del post
+        if (!actor.getUserId().equals(posts.getUsers().getUserId())){
+            eventPublisher.publishEvent(new PostLikeEvent(this,actor.getUSerId(),posts.getUsers().getUSerId(),postId));
+        }
+        return buildLikeResponse(actor, postId, "POST");
+    }
+
+
 
     /*ver todos los likes de un comentario*/
     public List<LikeResponse> getCommentLikes(Long commentId) {
