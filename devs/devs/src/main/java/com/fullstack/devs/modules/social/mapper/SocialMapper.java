@@ -6,6 +6,7 @@ import com.fullstack.devs.modules.social.model.dto.LikeResponse;
 import com.fullstack.devs.modules.social.model.entity.Comments;
 import com.fullstack.devs.modules.social.model.entity.CommentsLikes;
 import com.fullstack.devs.modules.social.model.entity.PostLikes;
+import com.fullstack.devs.modules.user.model.entity.Users;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -43,4 +44,12 @@ public interface SocialMapper {
     @Mapping(source = "createdAt", target = "createdAt")
     @Mapping(target = "targetType", constant = "COMMENT")
     LikeResponse commentsLikeToResponse(CommentsLikes like);
+
+
+    @Mapping(source = "actor.userId", target = "userId")
+    @Mapping(source = "actor.name", target = "name")
+    @Mapping(source = "actor.imagePath", target = "userId")
+    @Mapping(source = "targetId", target = "targetId")
+    @Mapping(source = "targetType", target = "targetType")
+    LikeResponse buildLikeResponse(Users actor, Long targetId, String targetType);
 }
