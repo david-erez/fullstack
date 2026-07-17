@@ -67,7 +67,7 @@ public class SocialService extends BaseService<Comments,Long> {
         if (!actor.getUserId().equals(posts.getUsers().getUserId())){
             eventPublisher.publishEvent(new PostLikeEvent(this,actor.getUserId(),posts.getUsers().getUserId(),postId));
         }
-        return socialMapper.buildLikeResponse(actor, postId, "POST");
+        return buildLikeResponse(actor, postId, "POST");
     }
 
     @Transactional
@@ -178,7 +178,7 @@ public class SocialService extends BaseService<Comments,Long> {
         like.setUserId(actor);
         like.setCommentId(comment);
 
-        return socialMapper.buildLikeResponse(actor,commentId,"COMMENT");
+        return buildLikeResponse(actor,commentId,"COMMENT");
 
     }
     @Transactional
@@ -193,5 +193,13 @@ public class SocialService extends BaseService<Comments,Long> {
 
     /* helpers que ayudaran a evitar codigo repetitivo*/
 
-
+    public LikeResponse buildLikeResponse( Users actor, Long targetId, String targetType) {
+        LikeResponse dto = new LikeResponse();
+        dto.setUserId(actor.getUserId());
+        dto.setName(actor.getName());
+        dto.setAvatarUrl(actor.getImagePath());
+        dto.setTargetId(targetId);
+        dto.setTargetType(targetType);
+        return dto;
+    }
 }

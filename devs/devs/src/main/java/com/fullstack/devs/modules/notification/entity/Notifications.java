@@ -26,6 +26,10 @@ public class Notifications {
     private boolean isRead;
     @Column (name = "created_at")
     private LocalDateTime createdAt;
+
+    @Column(name = "reference_id")
+    private Long referenceId;
+
     @ManyToOne
     @JoinColumn (name = "user_id",nullable = false)
     private Users users;

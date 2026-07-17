@@ -7,12 +7,12 @@ import java.util.List;
 
 public interface NotificationRepository extends JpaRepository<Notifications, Long> {
     // todas las notificaciones de usuario  desde mas recientes
-    List<Notifications>findByUserIdOrderByCreatedAtDesc(Long userId);
+    List<Notifications>findByUsersUserIdOrderByCreatedAtDesc(Long userId);
 
     // notificaciones no leidaw
-    List<Notifications>findByUserUserIdAndIsRead(Long userId);
 
     // cuantas no estan leidas
-    long countByUserUserIdAndIsReadFalse(Long userId );
+    long countByUsersUserIdAndIsReadFalse(Long userId );
 
+    List<Notifications>findByUsersUserIdAndIsReadFalse(Long userId);
 }

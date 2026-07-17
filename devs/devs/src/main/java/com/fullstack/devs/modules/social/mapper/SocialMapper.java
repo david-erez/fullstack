@@ -46,10 +46,5 @@ public interface SocialMapper {
     LikeResponse commentsLikeToResponse(CommentsLikes like);
 
 
-    @Mapping(source = "actor.userId", target = "userId")
-    @Mapping(source = "actor.name", target = "name")
-    @Mapping(source = "actor.imagePath", target = "userId")
-    @Mapping(source = "targetId", target = "targetId")
-    @Mapping(source = "targetType", target = "targetType")
-    LikeResponse buildLikeResponse(Users actor, Long targetId, String targetType);
+
 }
